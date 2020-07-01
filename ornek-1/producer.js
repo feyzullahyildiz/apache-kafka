@@ -1,5 +1,5 @@
 const { Kafka } = require("kafkajs");
-
+require('./configloader');
 const topic_name = process.argv[2] || "Logs2";
 const partition = process.argv[3] || 0;
 
@@ -9,7 +9,7 @@ async function createProducer() {
   try {
     const kafka = new Kafka({
       clientId: "kafka_ornek_1",
-      brokers: ["192.168.8.148:9092"]
+      brokers: [`${process.env.BROKER_HOST_NAME}:9092`]
     });
 
     const producer = kafka.producer();

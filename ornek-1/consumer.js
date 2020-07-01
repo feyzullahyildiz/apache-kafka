@@ -1,5 +1,5 @@
 const { Kafka } = require("kafkajs");
-
+require('./configloader');
 // node consumer.js Logs || Logs2
 const topic_name = process.argv[2] || "Logs2";
 
@@ -9,7 +9,7 @@ async function createConsumer() {
   try {
     const kafka = new Kafka({
       clientId: "kafka_ornek_1",
-      brokers: ["192.168.8.148:9092"]
+      brokers: [`${process.env.BROKER_HOST_NAME}:9092`]
     });
 
     const consumer = kafka.consumer({

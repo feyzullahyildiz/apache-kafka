@@ -1,13 +1,13 @@
 const { Kafka } = require("kafkajs");
 const log_data = require("./system_logs.json");
-
+require('./configloader');
 createProducer();
 
 async function createProducer() {
   try {
     const kafka = new Kafka({
       clientId: "kafka_log_store_client",
-      brokers: ["192.168.8.148:9092"]
+      brokers: [`${process.env.BROKER_HOST_NAME}:9092`]
     });
 
     const producer = kafka.producer();
